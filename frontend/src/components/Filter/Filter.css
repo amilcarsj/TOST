@@ -1,0 +1,12 @@
+.ant-drawer-body {
+  padding: 40px;
+  text-align: center;
+}
+
+.FilterContentWrapper {
+  display: flex;
+}
+
+.UpdateFiltersButton {
+  margin-top: 20px;
+}

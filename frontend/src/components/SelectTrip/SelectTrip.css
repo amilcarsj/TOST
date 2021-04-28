@@ -1,0 +1,12 @@
+/* .Wrapper {
+  padding: 20px;
+  min-width: 240px;
+} */
+
+.Select {
+  /* height: 60px; */
+  margin: 16px;
+  width: 160px !important;
+  box-sizing: border-box;
+  box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.3);
+}

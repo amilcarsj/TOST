@@ -1,0 +1,70 @@
+.App {
+  background-color: #ebeced;
+}
+
+.layout {
+  background-color: white;
+}
+
+/* .content {
+ display: flex;
+} */
+
+.left-container {
+  width: 20%;
+  border-right: 1px solid black;
+  padding: 20px;
+  min-width: 300px;
+}
+
+.center-container {
+  width: 80%;
+  height: 100vh;
+  padding: 20px;
+}
+
+.ComputationFiltersContainer {
+  padding: 20px;
+  flex-grow: 1;
+  flex-basis: 0;
+  background-color: white;
+  margin-right: 20px;
+  box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.5);
+}
+
+.TripScoreTitle {
+  margin: 10px;
+}
+
+.SelectionContainer {
+  display: flex;
+}
+.SelectionContainer > div:not(:last-child) {
+  margin-right: 20px;
+  border-right: 1px solid;
+}
+.SelectDescription {
+  margin-bottom: 10px;
+}
+
+.header {
+  background-color: white;
+  padding: 0 20px;
+  box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.headerTitle {
+  margin: 0;
+  line-height: 64px;
+  font-size: 24px;
+  font-weight: bold;
+  color: black;
+  display: inline-block;
+}
+
+.content {
+  padding: 20px;
+}
+

@@ -1,0 +1,39 @@
+.scoreHelperIcon {
+  padding-right: 10px; /* Add some space and align with popper */
+}
+
+.ScoreHelperContent {
+  max-width: 400px;
+}
+
+.ScoreBarDistribution {
+  display: inline-block;
+  margin-right: 10px;
+  height: 20px;
+  width: 12px;
+  background-color: #998ec3;
+}
+
+.ScoreBar {
+  height: 5px;
+  width: 150px;
+  background-color: #67a9cf;
+}
+
+.InterpolationSquare {
+  display: inline-block;
+  margin-right: 10px;
+  width: 10px;
+  height: 10px;
+  border: 1px solid grey;
+}
+
+.NoInterpolation {
+  background-color: #67a9cf;
+}
+.SplitInterpolation {
+  background-color: #f7f7f7;
+}
+.FullInterpolation {
+  background-color: #ef8a62;
+}

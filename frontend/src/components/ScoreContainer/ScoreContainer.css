@@ -1,0 +1,9 @@
+.Sliders {
+  margin-top: 20px;
+}
+
+.SliderContainer {
+  width: 300px;
+  display: inline-block;
+  font-weight: 600;
+}
