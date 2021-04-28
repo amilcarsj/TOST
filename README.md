@@ -1,4 +1,4 @@
-# thesis_project
+# TOST
 
 ## Requirements
 
