@@ -5,7 +5,7 @@ connection = None
 # this function has to be called
 def create_connection():
   global connection
-  connection = psycopg2.connect(database = "thesis")
+  connection = psycopg2.connect(database = "tost-db" ,user="postgres", password="12345678")
   connection.autocommit = True
 
 def create_cursor():

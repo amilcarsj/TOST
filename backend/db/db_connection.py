@@ -8,7 +8,7 @@ def create_connection():
   if connection:
     return connection
 
-  connection = psycopg2.connect(database = "thesis")
+  connection = psycopg2.connect(database = "tost-db", user="postgres", password="12345678")
   connection.autocommit = True
   return connection
 

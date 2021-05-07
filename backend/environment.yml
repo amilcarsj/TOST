@@ -19,14 +19,21 @@ dependencies:
   - pip:
     - click==7.1.2
     - flask==1.1.2
+    - flask-cors==3.0.10
     - itsdangerous==1.1.0
     - jinja2==2.11.3
     - markupsafe==1.1.1
+    - numpy==1.20.2
+    - pandas==1.2.4
     - postgis==1.0.4
     - postgres==3.0.0
     - psycopg2==2.8.6
     - psycopg2-binary==2.8.6
     - psycopg2-pool==1.1
+    - python-dateutil==2.8.1
+    - pytz==2021.1
+    - scipy==1.6.3
+    - six==1.16.0
     - werkzeug==1.0.1
 prefix: C:\Users\User\Anaconda3\envs\tost
 

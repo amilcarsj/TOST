@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS segment_trip_value_v2 (
   avg_bearing_in_deg       smallint,
   distance_in_nm           real,
   duration_in_sec          integer,
-  interpolation_percentage real
-  PRIMARY KEY (segmentation_id, segment_number, trip_id),
+  interpolation_percentage real,
+  PRIMARY KEY (segmentation_id, segment_number, trip_id)
   FOREIGN KEY (trip_id) REFERENCES trip_info (trip_id) ON DELETE CASCADE
 );
