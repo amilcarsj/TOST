@@ -17,10 +17,16 @@ dependencies:
   - wheel=0.36.2=pyhd3deb0d_0
   - wincertstore=0.2=py39hcbf5309_1006
   - pip:
+    - click==7.1.2
+    - flask==1.1.2
+    - itsdangerous==1.1.0
+    - jinja2==2.11.3
+    - markupsafe==1.1.1
     - postgis==1.0.4
     - postgres==3.0.0
     - psycopg2==2.8.6
     - psycopg2-binary==2.8.6
     - psycopg2-pool==1.1
+    - werkzeug==1.0.1
 prefix: C:\Users\User\Anaconda3\envs\tost
 
