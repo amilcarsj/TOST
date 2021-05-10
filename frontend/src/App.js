@@ -29,6 +29,10 @@ const App = () => {
   const [runOnboarding, setRunOnboarding] = useState(false);
   const [scenario, setScenario] = useState(1);
 
+  useEffect(() => {
+    document.title= "TOST"
+  }, [])
+  
   // console.log(navio)
   useEffect(() => {
     fetch(`${window.href}/trips-2?origin=HOUSTON&destination=NEW ORLEANS&vessel-types=70`)
