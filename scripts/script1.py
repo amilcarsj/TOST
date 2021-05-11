@@ -1,16 +1,11 @@
+# Used to populate the trip_raw table from the raw csv data
 import csv
 import psycopg2
+from db_connection import DBConnection
 
-csv_file_path = '/Users/fernando/Projects/thesis_project/dataset/tais_voyages_sample_hou_nol_points_by_voyage_w_ref.csv'
+csv_file_path = 'D:/Projects/TOST/SampleDataset/tais_voyages_sample_hou_nol_points_by_voyage_w_ref.csv'
 
-connection = None
-
-try:
-    connection = psycopg2.connect(database = "thesis")
-    connection.autocommit = True
-except (Exception, psycopg2.Error) as error :
-    print ("Error while connecting to PostgreSQL", error)
-
+db_connection = DBConnection.get_instance().get_connection()
 cursor = connection.cursor()
 
 postgres_insert_query = """ INSERT INTO trip_raw (trip_id, timestamp, mmsi, lng_lat, heading, sog, rot, cog, ship_type) VALUES (%s,%s,%s, %s,%s,%s, %s,%s,%s) ON CONFLICT DO NOTHING;"""

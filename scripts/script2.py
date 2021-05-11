@@ -1,4 +1,4 @@
-# this scrip add data to vessel table
+# this script extract  data to vessel table
 from db_connection import DBConnection
 
 db_connection = DBConnection.get_instance().get_connection()
