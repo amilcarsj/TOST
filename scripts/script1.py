@@ -6,7 +6,7 @@ from db_connection import DBConnection
 csv_file_path = 'D:/Projects/TOST/SampleDataset/tais_voyages_sample_hou_nol_points_by_voyage_w_ref.csv'
 
 db_connection = DBConnection.get_instance().get_connection()
-cursor = connection.cursor()
+cursor = db_connection.cursor()
 
 postgres_insert_query = """ INSERT INTO trip_raw (trip_id, timestamp, mmsi, lng_lat, heading, sog, rot, cog, ship_type) VALUES (%s,%s,%s, %s,%s,%s, %s,%s,%s) ON CONFLICT DO NOTHING;"""
 with open(csv_file_path) as csv_file:
@@ -26,7 +26,7 @@ with open(csv_file_path) as csv_file:
     cursor.execute(postgres_insert_query, record_to_insert)
 
 count = cursor.rowcount
-print (count, "Record inserted successfully into mobile table")
+print (count, "Records inserted successfully into trip_raw table")
 
 
 if(connection):

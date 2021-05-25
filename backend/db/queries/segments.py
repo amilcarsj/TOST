@@ -46,17 +46,25 @@ def save_segment_values_for_trip(segmentation_id, segment_number, trip_id, value
                                               distance_in_nm,
                                               duration_in_sec,
                                               interpolation_percentage)
-              VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s) ON CONFLICT DO NOTHING;"""
-  cursor.execute(query, (segmentation_id,
-                        segment_number,
-                        trip_id,
-                        values['min_speed_in_knots'],
-                        values['average_speed_in_knots'],
+              VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s,%s) ON CONFLICT DO NOTHING;"""
+
+  to_insert = (segmentation_id, segment_number, trip_id, values['min_speed_in_knots'],values['average_speed_in_knots'],
                         values['max_speed_in_knots'],
                         values['average_bearing_in_deg'],
                         values['travel_distance_in_nm'],
                         values['duration_in_seconds'],
-                        values['interpolation_percentage']))
+                        values['interpolation_percentage'])
+  cursor.execute(query,to_insert)
+  # cursor.execute(query, (segmentation_id,
+  #                       segment_number,
+  #                       trip_id,
+  #                       values['min_speed_in_knots'],
+  #                       values['average_speed_in_knots'],
+  #                       values['max_speed_in_knots'],
+  #                       values['average_bearing_in_deg'],
+  #                       values['travel_distance_in_nm'],
+  #                       values['duration_in_seconds'],
+  #                       values['interpolation_percentage']))
 
 # def update_segment_values_for_trip(segmentation_id, segment_number, trip_id, interpolation_percentage):
 #   cursor = create_cursor()

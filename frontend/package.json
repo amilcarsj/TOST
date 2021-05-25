@@ -21,7 +21,8 @@
     "react-google-maps": "^9.4.5",
     "react-joyride": "^2.2.1",
     "react-scripts": "3.4.0",
-    "recompose": "^0.30.0"
+    "recompose": "^0.30.0",
+    "yarn": "^1.22.10"
   },
   "scripts": {
     "start": "react-scripts start",

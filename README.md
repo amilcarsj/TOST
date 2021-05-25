@@ -30,9 +30,9 @@ A PostgreSQL (aka Postgres) database is used to store the raw trip and vessel da
   1. Create a database in Postgre named `tost-db`
   2. Run the sql create statements in the `/database-scripts` directory in the given sequence in the filename prefix (v01-v06). Running all these create statements will create all the required table in the `tost-db` database
   3. When the tables are there, to fill in the tables from the raw AIS data in the available csv files, first download the csv files from the shared Google drive folder. Then, in the `/scripts` directory there are python scripts to read in the csv files and write in the database table. <br>
-  Change the username and password to your Postgres username and password in the _db_connection.py_ file
-
-  1. Running all the python scripts in the sequence _script1_ to _script9_, will 
+  Change the username and password to your Postgres username and password in the _db_connection.py_ file. 
+  4. In _script1.py_ and _script3.py_ set the `csv_file_path` variable to the directory where you stored the raw trip and vessel data csv files.
+  5. Running all the python scripts in the sequence _script1_ to _script9_, will 
  
 
 
