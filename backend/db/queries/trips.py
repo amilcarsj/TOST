@@ -25,7 +25,7 @@ def save_trip(trip_id, trip_df):
   Save trip dataframe to trip_v2 table
   '''
   cursor = create_cursor()
-  query = 'INSERT INTO trip_v2 (trip_id, timestamp, lng_lat, interpolated, speed_in_knots, bearing_in_deg, travel_distance_in_nm) VALUES (%s, to_timestamp(%s),%s, %s, %s, %s, %s) ON CONFLICT DO NOTHIN;'
+  query = 'INSERT INTO trip_v2 (trip_id, timestamp, lng_lat, interpolated, speed_in_knots, bearing_in_deg, travel_distance_in_nm) VALUES (%s, to_timestamp(%s),%s, %s, %s, %s, %s) ON CONFLICT DO NOTHING;'
   for index, row in trip_df.iterrows():
     lng_lat = "SRID=4326;POINT({} {})".format(row['lng'], row['lat'])
     timestamp = row['timestamp_in_seconds']

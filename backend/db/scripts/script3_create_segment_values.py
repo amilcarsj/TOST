@@ -20,7 +20,9 @@ def calculate_segment_values(segmentation_id):
         trip_on_segment_df = get_trip_df(trips_data_on_segment_df, trip_id)
         trip_segment_values = calculate_trip_values_on_segment(trip_on_segment_df)
         save_segment_values_for_trip(segmentation_id, segment['segment_number'], trip_id, trip_segment_values)
-      except:
+        print(f'Successfully calculated segment values for trip_id<{trip_id}> on segment<{segment["segment_number"]}>')
+      except Exception as e:
+        print(e)
         print(f'failed to calculate segment values for trip_id<{trip_id}> on segment<{segment["segment_number"]}>')
 
 def get_trip_df(trips_df, trip_id):

@@ -7,7 +7,7 @@ class DBConnection(object):
     def __init__(self):
         """Initialize your database connection here."""
         try:
-            connection = psycopg2.connect(database = "thesis")
+            connection = psycopg2.connect(database = "tost-db", user="postgres", password="12345678")
             connection.autocommit = True
             self.connection = connection
         except (Exception, psycopg2.Error) as error :

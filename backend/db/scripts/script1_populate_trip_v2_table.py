@@ -1,5 +1,5 @@
 import sys
-sys.path.append('../../') # hack so we can access sibling folder https://stackoverflow.com/questions/4383571/importing-files-from-different-folder
+sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/../..") # hack so we can access sibling folder https://stackoverflow.com/questions/6323860/sibling-package-imports
 from db.db_connection import create_connection
 from db.queries.trips import load_all_trip_ids, load_raw_trip, save_trip
 from hampel_filter import hampel_filter_pandas
@@ -25,7 +25,8 @@ def populate_trip_table():
       trip_df = interpolate(trip_df)
       trip_df = calculate_additional_attributes(trip_df)
       save_trip(trip_id, trip_df)
-    except:
+    except Exception as e: 
+      print(e)
       print(trip_id)
 
   print('trip table have been correctly populated')

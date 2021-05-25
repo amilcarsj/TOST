@@ -4,7 +4,7 @@ import csv
 from geopy.distance import geodesic
 from db_connection import DBConnection
 
-csv_file_path = '/Users/fernando/Projects/thesis_project/dataset/tais_voyages_sample_hou_nol.csv'
+csv_file_path = 'D:/Projects/TOST/SampleDataset/tais_voyages_sample_hou_nol.csv'
 connection = None
 
 db_connection = DBConnection.get_instance().get_connection()

@@ -18,7 +18,7 @@ const mapOptions = {
 // googleMapURL: "https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyDjwPmBxYvzXZfD6M_Xs5sUWVgF7F9zTro",
 export const Map = compose(
   withProps({
-    googleMapURL: "https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyDjwPmBxYvzXZfD6M_Xs5sUWVgF7F9zTro",
+    googleMapURL: "https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyAbkgNLjOHPO2iKcK5iL2Bc1VLwgJZ4IXI",
     loadingElement: <div style={{ height: `40vh`, width: `100%` }} />,
     containerElement: <div className='MapWrapper' />,
     mapElement: <div style={{ height: `100%` }} />,
