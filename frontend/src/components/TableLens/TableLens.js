@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import * as d3 from 'd3';
-import { select, axisBottom, scaleLinear } from 'd3';
+import { select, axisBottom, scaleLinear, group } from 'd3';
 import { Button, Typography } from 'antd';
 import { renderBarChart } from './renderBarChart';
 import sortDefault from './sort.svg';
@@ -74,7 +74,7 @@ export const TableLens = ({ data, header, onTripClick, calcMethod, setCalcMethod
 
     return aVal - bVal;
   }
-
+  // Setting the states after receiving the data
   useEffect(() => {
     // clean filter on different scenarios
     setSortState(null);
@@ -87,7 +87,7 @@ export const TableLens = ({ data, header, onTripClick, calcMethod, setCalcMethod
   // const prevFilterByColumn = usePrevious(filterByColumn);
   // const prevSortState = usePrevious(sortState);
 
-
+  // Filtering and sorting the data depending on the selection 
   useEffect(() => {
     let sortedData = [...data];
 
@@ -319,6 +319,7 @@ export const TableLens = ({ data, header, onTripClick, calcMethod, setCalcMethod
 
   }, [data, sortedData, filterByColumn, dimensions]);
 
+// creates the table of trip score from the sortedData
   useEffect(() => {
     // Table
     if (!dimensions) {
@@ -337,15 +338,9 @@ export const TableLens = ({ data, header, onTripClick, calcMethod, setCalcMethod
     //   .padding(0.02);
     // const yScale = scale()
 
+    //d3 selector for all the bars in the tablelense
     const groups = svg
       .select('.table')
-      // .attr('pointer-events', 'bounding-box')
-      // .on('mouseleave', () => {
-      //   console.log(event);
-      //   // if (event.target.className && event.target.className.baseVal == 'table') {
-      //   //   setHovered(null);
-      //   // }
-      // })
       .selectAll('.row')
       .data(sortedData)
       .join('g')
@@ -369,7 +364,7 @@ export const TableLens = ({ data, header, onTripClick, calcMethod, setCalcMethod
       .each((d, i, nodes) => {
         const parent = d3.select(nodes[i]);
         parent
-          .selectAll('.rowbackground')
+          .selectAll('.rowbackground') // selector for row background
           .data(d => [d])
           .join('rect')
           .attr('class', 'rowbackground')
@@ -379,7 +374,7 @@ export const TableLens = ({ data, header, onTripClick, calcMethod, setCalcMethod
           .attr('fill', `${i == selectedIndex ? '#999999': 'white'}`)
 
         parent
-          .selectAll('.bar')
+          .selectAll('.bar')   // selector for all the bars
           .data(d)
           .join('rect')
           .attr('class', 'bar')
@@ -393,28 +388,6 @@ export const TableLens = ({ data, header, onTripClick, calcMethod, setCalcMethod
           .attr('fill', val => colorScale(val.interpolation))
       })
 
-      // svg
-      //   .selectAll('.table')
-      //   .data(d => [1])
-      //   .append('rect')
-      //   .attr('class', 'click-capture')
-      //   .attr('pointer-events', 'all')
-      //   .attr('x', 0)
-      //   .attr('y', headerHeight)
-      //   .attr('width', dimensions.width)
-      //   .attr('height', dimensions.height - headerHeight)
-      //   .attr('fill', 'green')
-      //   .style('visibility', 'hidden')
-      //   .on('mouseleave', () => {
-      //     // setHovered(null);
-      //     console.log('mouseleave table', event)
-      //   })
-
-      // svg
-      // .on('mouseleave', () => {
-      //   // setHovered(null);
-      //   console.log('mouseleave leave', event)
-      // })
   }, [sortedData, selectedIndex, dimensions]);
 
   useEffect(() => {
@@ -486,16 +459,6 @@ export const TableLens = ({ data, header, onTripClick, calcMethod, setCalcMethod
         .attr('alignment-baseline', "hanging")
       }
 
-
-      // parent
-      //  .selectAll('.bla')
-      //  .data(d => [d])
-      //  .join('text')
-      //  .attr('class', 'bla')
-      //  .text(data =>  getText(data, i))
-      //  .attr('y', 0)
-      //  .attr('alignment-baseline', "hanging")
-
       if (i == 0) {
         fo
         .selectAll('.tripId')
@@ -510,9 +473,9 @@ export const TableLens = ({ data, header, onTripClick, calcMethod, setCalcMethod
       }
 
 
-      // selected.forEach((data, index) => {
-      //   console.log(data, index);
-      // });
+    // selected.forEach((data, index) => {
+    //      console.log(data, index);
+    //    });
     }
 
     const aHeight = Math.min(dimensions.height, headerHeight +20 + sortedData.length * 21)
@@ -561,6 +524,7 @@ export const TableLens = ({ data, header, onTripClick, calcMethod, setCalcMethod
 
         <ScoreHelper />
       </div>
+      {/* Score Tablelens */}
       <div className='wrapper' ref={wrapperRef}>
         <svg className='svgtest' ref={svgRef} style={{ height: dimensions ? dimensions.height : 300 }}>
           <g className='header' ref={tableHeaderRef}/>

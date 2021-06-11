@@ -1,4 +1,3 @@
-//
 import { select, axisBottom, axisRight, scaleLinear, scaleBand, scaleSymlog, brushX, event } from "d3";
 
 import { useEffect, useRef } from "react";
@@ -15,7 +14,7 @@ function usePrevious(value) {
   return ref.current;
 }
 
-
+/*defines the brushable filter based on number of trips in a score range */
 export const renderBarChart = (svg, data, selected, width, height, onFilterChange, resetBrush, filterValue, shouldUpdate) => {
   const range = 1; // this value will be used to define the block sizes values
   const min = Math.min(...data).toFixed(2);
