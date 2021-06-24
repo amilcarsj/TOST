@@ -32,7 +32,7 @@ A PostgreSQL (aka Postgres) database is used to store the raw trip and vessel da
   3. When the tables are there, to fill in the tables from the raw AIS data in the available csv files, first download the csv files from the shared Google drive folder. Then, in the `/scripts` directory there are python scripts to read in the csv files and write in the database table. <br>
   Change the username and password to your Postgres username and password in the _db_connection.py_ file. 
   4. In _script1.py_ and _script3.py_ set the `csv_file_path` variable to the directory where you stored the raw trip and vessel data csv files.
-  5. Running all the python scripts in the sequence _script1_ to _script9_, will 
+  5. Running all the python scripts in the sequence _script1_ to _script9_, will enumerate on the raw data and populate the table. These scripts will also interpolate the trip trajectory's missing data, divide the trip into different segments, calculate trip specific values for the segments and store them in the trip v2 table.  
  
 
 
@@ -56,3 +56,4 @@ pip install flask
 
 * Add different segment sizes
 * Add itinarary table which will have a origin and destination
+* Adding an interpolation filter for the Tablelense view.
