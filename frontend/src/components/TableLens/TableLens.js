@@ -104,6 +104,7 @@ export const TableLens = ({ data, header, onTripClick, calcMethod, setCalcMethod
             return false;
           }
 
+
           return true;
         });
       });
@@ -287,18 +288,18 @@ export const TableLens = ({ data, header, onTripClick, calcMethod, setCalcMethod
       //   g = parent.append('g').attr('transform', `translate(0,  ${headerHeight - barChartHeight - 25})`)
       // }
 
-      const onFilterChange = (minMaxFilterValues) => {
-        if (filterByColumn[columnIndex] != null && filterByColumn[columnIndex].every((val, index) => val ==  minMaxFilterValues[index])){
+      const onFilterChange = (FilterValues) => {
+        if (filterByColumn[columnIndex] != null && filterByColumn[columnIndex].every((val, index) => val ==  FilterValues[index])){
           return;
         }
         let filterValues = [...filterByColumn];
-        filterValues[columnIndex] = minMaxFilterValues;
+        filterValues[columnIndex] = FilterValues;
         setHovered(null);
         setSelected(null);
         setFilterChange(filterValues);
       }
 
-      // console.log(prevFilterByColumn, filterByColumn)
+      console.log(prevFilterByColumn, filterByColumn);
       const isFilterReset = filterByColumn.every(val => val == null);
       const isEqual = filterByColumn[columnIndex] == prevFilterByColumn[columnIndex] ||
         (filterByColumn[columnIndex] &&  prevFilterByColumn[columnIndex] && filterByColumn[columnIndex].every((val, index) => val ==  prevFilterByColumn[columnIndex][index]))

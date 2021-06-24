@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { Drawer, Input, InputNumber, Button, Dropdown, Menu } from 'antd';
+import { Drawer, Input, InputNumber, Button, Dropdown, Menu, Select } from 'antd';
 import moize from 'moize';
 import './Filter.css';
 import { values } from 'd3';
@@ -20,6 +20,8 @@ const calculateMinMax = (data, filterByColumn) => {
 
 const memcalculateMinMax = moize(calculateMinMax);
 
+
+const { Option } = Select;
 const interpolationFilterDropdown = (
   <Menu>
     <Menu.Item>
@@ -48,7 +50,7 @@ const interpolationFilterDropdown = (
 export const Filter = ({ visible, filterByColumn, onClose, numFilters, columnWidth, data, onUpdateFilters }) => {
   const inputRefMin = useRef([]);
   const inputRefMax = useRef([]);
-  const inpFilterRef= useRef([]);
+  const interpFilterRef= useRef([]);
 
   if (filterByColumn.length != data[0].length) {
     return <></>;
@@ -59,6 +61,7 @@ export const Filter = ({ visible, filterByColumn, onClose, numFilters, columnWid
 
   inputRefMin.current = new Array(filterByColumn.length);
   inputRefMax.current = new Array(filterByColumn.length);
+  interpFilterRef.current = new Array(filterByColumn.length);
 
   const calculateFilterValues = () => {
     const values = [...Array(filterByColumn.length).keys()].map(index => {
@@ -67,20 +70,30 @@ export const Filter = ({ visible, filterByColumn, onClose, numFilters, columnWid
       }
       const min = inputRefMin.current[index].inputNumberRef.state.inputValue;
       const max = inputRefMax.current[index].inputNumberRef.state.inputValue;
-
+      const interpFilter = interpFilterRef.current[index];
+      console.log(interpFilter);
+      let filters = new Array();
       if (min == null && max == null) {
-        return null;
+        filters=  [minMaxValues[index][0],minMaxValues[index][1]];
       }
-      if (min == null) {
-        return [minMaxValues[index][0], parseFloat(max)]
+      else if (min != null && max != null) {
+        filters = [parseFloat(min),parseFloat(max)];
       }
-      if (max == null) {
-        return [parseFloat(min), minMaxValues[index][1]]
+      else if (max == null) {
+        filters = [parseFloat(min), minMaxValues[index][1]];
       }
-      return [parseFloat(min), parseFloat(max)];
+      else if (min == null){
+        filters = [minMaxValues[index][0],parseFloat(max)];
+      }
+      filters.push(interpFilter);
+      
+      return filters;
     });
 
     return values;
+  }
+  const selectFilter = (option, el, index) =>{ 
+    interpFilterRef.current[index] = option.value;
   }
 
   return(<Drawer
@@ -96,13 +109,22 @@ export const Filter = ({ visible, filterByColumn, onClose, numFilters, columnWid
       <Input.Group key={index} compact style={{padding: '0 5px 0 5px',  width: columnWidth, visibility: index == 0 ? 'hidden' : 'visible', }}>
         { index > 0 &&
           <>
-            <Dropdown overlay={interpolationFilterDropdown} 
-                      placement="bottomLeft" 
-                      arrow='true'>
-              <Button type="primary" style={{ width: '100%', textAlign: 'center',marginBottom: '5px'}}>Interpolation Filter 
-                <DownOutlined style={{marginTop: '8px'}} />
-              </Button>
-            </Dropdown>
+          <Select
+              labelInValue
+              defaultValue={{value:'all'}}
+              style={{ width: '100%' }}
+              //ref= {el => interpFilterRef.current[index] = el}
+              //ref= {el => interpFilterRef.current[index] = el}
+              onSelect = {(val, el) => selectFilter(val, el,index)}
+            >
+              <Option value="all">Show All </Option>
+              <Option value="lt25">Interpolation&lt;25% </Option>
+              <Option value="25to50">25%&lt;Interpolation&lt;50%</Option>
+              <Option value="50to75">50%&lt;Interpolation&lt;75%</Option>
+              <Option value="gt75">Interpolation&gt;75% </Option>
+
+            </Select>
+            
             <InputNumber
               style={{ width: '100%', textAlign: 'center', marginBottom: 5 }}
               step={0.1}
