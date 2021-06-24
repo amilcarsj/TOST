@@ -22,30 +22,6 @@ const memcalculateMinMax = moize(calculateMinMax);
 
 
 const { Option } = Select;
-const interpolationFilterDropdown = (
-  <Menu>
-    <Menu.Item>
-      <a>
-        Interpolation&lt;25% 
-      </a>
-    </Menu.Item>
-    <Menu.Item>
-      <a>
-        25%&lt;Interpolation&lt;50%
-      </a>
-    </Menu.Item>
-    <Menu.Item>
-      <a>
-        50%&lt;Interpolation&lt;75%
-      </a>
-    </Menu.Item>
-    <Menu.Item>
-      <a>
-        Interpolation&gt;75% 
-      </a>
-    </Menu.Item>
-  </Menu>
-);
 
 export const Filter = ({ visible, filterByColumn, onClose, numFilters, columnWidth, data, onUpdateFilters }) => {
   const inputRefMin = useRef([]);
