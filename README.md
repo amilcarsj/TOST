@@ -56,4 +56,4 @@ pip install flask
 
 * Add different segment sizes
 * Add itinarary table which will have a origin and destination
-* Adding an interpolation filter for the Tablelense view.
+* Adding an interpolation filter for the Tablelense view. 
