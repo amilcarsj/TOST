@@ -89,33 +89,60 @@ export const TableLens = ({ data, header, onTripClick, calcMethod, setCalcMethod
 
   // Filtering and sorting the data depending on the selection 
   useEffect(() => {
-    let sortedData = [...data];
+    let filteredData = sortedData==undefined?[...data]:[...sortedData];
 
     const isFilterReset = filterByColumn.every(val => val == null);
     if (!isFilterReset) {
-      sortedData = sortedData.filter(row => {
-        return filterByColumn.some((filterInterval, columnIndex) => {
+      filteredData = filteredData.filter(row => {
+        return filterByColumn.some((filterInterval, columnIndex, filterByColumnArray) => {
           if (filterInterval == null) { // no filter has been set to this column yet
             return false;
           }
-
+          const interpFilter = filterInterval[2]
           const score = row[columnIndex].value;
+          const interpPercentage = row[columnIndex].interpolation * 100;
+
           if (score < filterInterval[0] || score > filterInterval[1]) {
             return false;
           }
 
+          if (interpFilter == undefined)
+            return true;
 
+          switch (interpFilter) {
+            case "lt25":
+              if(interpPercentage > 25)
+                return false;
+              else break;
+            case "25to50":
+              if(interpPercentage <= 25 || interpPercentage > 50)
+                return false;
+              else break;
+            case "50to75":
+              if(interpPercentage <= 50 || interpPercentage > 75)
+                return false;
+              else break;
+            case "gt75":
+              if(interpPercentage <= 75)
+                return false;
+              else break; 
+            default:
+              break;
+          }
           return true;
         });
       });
     }
+    else{
+      filteredData= [...data];
+    }
 
     if (sortState) {
       const columnIndex = sortState.column;
-      sortedData.sort((a,b) => compare(a[columnIndex], b[columnIndex], sortState.sortBy, sortState.state ))
+      filteredData.sort((a,b) => compare(a[columnIndex], b[columnIndex], sortState.sortBy, sortState.state ))
     }
 
-    setSortedData(sortedData);
+    setSortedData(filteredData);
   }, [sortState, filterByColumn])
 
   const calcWidth = (value, column) => {

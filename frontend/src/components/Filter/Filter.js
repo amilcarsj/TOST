@@ -94,10 +94,10 @@ export const Filter = ({ visible, filterByColumn, onClose, numFilters, columnWid
               onSelect = {(val, el) => selectFilter(val, el,index)}
             >
               <Option value="all">Show All </Option>
-              <Option value="lt25">Interpolation&lt;25% </Option>
-              <Option value="25to50">25%&lt;Interpolation&lt;50%</Option>
-              <Option value="50to75">50%&lt;Interpolation&lt;75%</Option>
-              <Option value="gt75">Interpolation&gt;75% </Option>
+              <Option value="lt25">interp&lt;25% </Option>
+              <Option value="25to50">25%&lt;interp&lt;50%</Option>
+              <Option value="50to75">50%&lt;interp&lt;75%</Option>
+              <Option value="gt75">interp&gt;75% </Option>
 
             </Select>
             

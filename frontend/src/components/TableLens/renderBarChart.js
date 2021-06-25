@@ -89,7 +89,7 @@ export const renderBarChart = (svg, data, selected, width, height, onFilterChang
       // console.log('brush2')
       if (event.selection) {
         const indexSelection = event.selection.map(xScale.invert);
-        onFilterChange([indexSelection[0], indexSelection[1],indexSelection[2]])
+        onFilterChange([indexSelection[0], indexSelection[1]])
         // setSelection(indexSelection);
       }
     });
