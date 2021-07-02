@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import 'antd/dist/antd.css';
 // import { ResponsiveParallelCoordinates } from '@nivo/parallel-coordinates'
 import { DataSelection, MapContainer, NavioTest, ScoreContainer, CheckboxT, SelectTrip, Onboarding, ScoreHelper, SelectScenario, ScoreTable } from './components';
-import { Layout, Typography, Button } from 'antd';
+import { Layout, Typography, Button, Divide } from 'antd';
 // import { QuestionCircleOutlined } from '@ant-design/icons';
 import './App.css';
 // import { Test } from './components/test';
@@ -14,7 +14,7 @@ const href =  window.location.href;
 // window.href = href;
 window.href = 'http://localhost:5000';
 const { Sider, Content, Header } = Layout;
-const { Title } = Typography;
+const { Title, Text } = Typography;
 
 const attributes = ['Min sog', 'Avg sog', 'Max sog', 'Distance travelled', 'Trip duration', 'Avg heading'];
 
@@ -141,14 +141,16 @@ const App = () => {
       <Content className='content'>
         <div className='TopContainer'>
           <div className='ComputationFiltersContainer'>
-            <Title level={4}>Score computation</Title>
+            {/* <Title level={3} style={{marginBottom:"5px"}}>Score computation</Title> */}
             <div className='SelectionContainer'>
               <div>
-                <div className='SelectDescription'>Select the spatial region you want to use in the score computation</div>
+                
+              <Title level={4}>Spatial Region Selector</Title>
+                <div className='SelectDescription'><Text type="secondary">Select the spatial region you want to use in the score computation</Text></div>
                 <CheckboxT options={getSegmentsCheckboxOptions()} value={selected} onChange={setSelected}/>
-              </div>
-              <div>
-                <div className='SelectDescription'>Select the attributes you want to use in the score computation</div>
+                
+              <Title level={4} style={{marginTop:"5px"}}>Attribute Selector</Title>
+                <div className='SelectDescription'><Text type="secondary">Select the attributes you want to use in the score computation</Text></div>
                 <CheckboxT options={getAttributesCheckboxOptions()} value={selectedAttributes} onChange={setSelectedAttributes}/>
               </div>
             </div>
@@ -163,6 +165,20 @@ const App = () => {
             selectTripComponent={renderSelectTrip()}
             clickable
           />
+          <div className='AttrContributionContainer'>
+            <Title level={3}>Score computation</Title>
+            <div className='SelectionContainer'>
+              <div>
+                <div className='SelectDescription'>Select the spatial region you want to use in the score computation</div>
+                <CheckboxT options={getSegmentsCheckboxOptions()} value={selected} onChange={setSelected}/>
+              </div>
+              <div>
+                <div className='SelectDescription'>Select the attributes you want to use in the score computation</div>
+                <CheckboxT options={getAttributesCheckboxOptions()} value={selectedAttributes} onChange={setSelectedAttributes}/>
+              </div>
+            </div>
+
+          </div>
         </div>
         {segmentValues && <ScoreTable tripsId={tripsId} data={segmentValues} selectedSegments={selected} selectedAttr={selectedAttributes} onTripClick={onSelectedTripChange} scenario={scenario} />}
       </Content>

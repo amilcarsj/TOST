@@ -27,7 +27,7 @@ export const calculate = (tripsId, data, selectedSegments, selectedAttr, calcMet
       //TODO: from the individual value of those attributes, we can calculate, 
       //TODO:how much/percentage of sum is being added from that attribute
       // Later we need to pass it to the parent component, and construct a D3 visualization
-      // or some modal to show the amount of contribution (Need to ask from professor) 
+      // or some modal to show the amount of contribution (Need to ask professor) 
       const avgScore = numSegmentsWithScore > 0 ? totalTripScore / numSegmentsWithScore : null;
       const score = sum / numAttr;
       totalTripScore += score;
@@ -46,7 +46,8 @@ export const calculate = (tripsId, data, selectedSegments, selectedAttr, calcMet
 
     if (calcMethod == 'max')
      return [tripId, { value: maxScore, interpolation: highesScoreInterpolation }, ...segmentScoresForTrip];
-    return  [tripId, { value: avgScore, interpolation: avgInterpolation }, ...segmentScoresForTrip];
+    else
+      return  [tripId, { value: avgScore, interpolation: avgInterpolation }, ...segmentScoresForTrip];
   });
 
   // downloadObjectAsJson(tripsScoring, 'scoring');
