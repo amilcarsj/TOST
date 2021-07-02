@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import 'antd/dist/antd.css';
 // import { ResponsiveParallelCoordinates } from '@nivo/parallel-coordinates'
 import { DataSelection, MapContainer, NavioTest, ScoreContainer, CheckboxT, SelectTrip, Onboarding, ScoreHelper, SelectScenario, ScoreTable } from './components';
-import { Layout, Typography, Button, Divide } from 'antd';
+import { Layout, Typography, Button, Divider } from 'antd';
 // import { QuestionCircleOutlined } from '@ant-design/icons';
 import './App.css';
 // import { Test } from './components/test';
@@ -166,15 +166,12 @@ const App = () => {
             clickable
           />
           <div className='AttrContributionContainer'>
-            <Title level={3}>Score computation</Title>
-            <div className='SelectionContainer'>
+            <Title level={3}>Attribute Contribution on Score Calculation</Title>
+            <Title level={4}>Trip ID  <Text type="warning">[SELECTED TRIP ID]</Text> </Title>
+            <div>
+            
               <div>
-                <div className='SelectDescription'>Select the spatial region you want to use in the score computation</div>
-                <CheckboxT options={getSegmentsCheckboxOptions()} value={selected} onChange={setSelected}/>
-              </div>
-              <div>
-                <div className='SelectDescription'>Select the attributes you want to use in the score computation</div>
-                <CheckboxT options={getAttributesCheckboxOptions()} value={selectedAttributes} onChange={setSelectedAttributes}/>
+                   
               </div>
             </div>
 
