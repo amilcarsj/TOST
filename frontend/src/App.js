@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 // import navio from '../../../navio/src';
 import 'antd/dist/antd.css';
 // import { ResponsiveParallelCoordinates } from '@nivo/parallel-coordinates'
-import { DataSelection, MapContainer, NavioTest, ScoreContainer, CheckboxT, SelectTrip, Onboarding, ScoreHelper, SelectScenario, ScoreTable } from './components';
-import { Layout, Typography, Button, Divider } from 'antd';
+import { DataSelection, MapContainer, NavioTest, ScoreContainer, CheckboxT, SelectTrip, Onboarding, ScoreHelper, SelectScenario, ScoreTable, AttributeContribution } from './components';
+import { Layout, Typography, Button, Divider, Row, Col } from 'antd';
 // import { QuestionCircleOutlined } from '@ant-design/icons';
 import './App.css';
 // import { Test } from './components/test';
@@ -75,7 +75,7 @@ const App = () => {
   // }
 
   const loadMedianTrajectory = () => {
-    fetch(`${window.href}//trajectory2/1110`)
+    fetch(`${window.href}//trajectory2/162`)
     .then(res => res.json())
     .then(meanTraj => {
       setMeanTrajectory(meanTraj);
@@ -166,12 +166,23 @@ const App = () => {
             clickable
           />
           <div className='AttrContributionContainer'>
-            <Title level={3}>Attribute Contribution on Score Calculation</Title>
-            <Title level={4}>Trip ID  <Text type="warning">[SELECTED TRIP ID]</Text> </Title>
+          <Row>
+            <Col span={16}><Title level={4}>Attribute Contribution on Score Calculation</Title></Col>
+            <Col span={8} >
+              <Title level={4}> 
+              <Text type="warning">{selectedTrip!=null?selectedTrip.tripId:"No Trip selected"}</Text> 
+            </Title>
+            </Col>
+          </Row>
+            
+            
             <div>
             
               <div>
-                   
+               <AttributeContribution
+                  selectedTrip={selectedTrip}
+                  meanTrajectory={meanTrajectory}
+               />
               </div>
             </div>
 
