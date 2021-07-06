@@ -23,20 +23,18 @@ export const calculate = (tripsId, data, selectedSegments, selectedAttr, calcMet
       const filteredAttr = selectedAttr.map(attrIndex => tripIdAndValues[attrIndex + 1]) // we add +1 because the first value is the trip id
       // TODO: Capture the attribute names and values
       const sum = filteredAttr.reduce((acc, cur) => acc + Math.abs(cur), 0);
-      //TODO: As this sum is being calculated from selected column's sum, 
-      //TODO: from the individual value of those attributes, we can calculate, 
-      //TODO:how much/percentage of sum is being added from that attribute
       // Later we need to pass it to the parent component, and construct a D3 visualization
       // or some modal to show the amount of contribution (Need to ask professor) 
       const avgScore = numSegmentsWithScore > 0 ? totalTripScore / numSegmentsWithScore : null;
       const score = sum / numAttr;
+      const attrContribution = filteredAttr.map(attrValue => ((Math.abs(attrValue)/sum)*100));
       totalTripScore += score;
       if (score > maxScore) {
         maxScore = score;
         highesScoreInterpolation = interpolation;
       }
       interpolationSum += interpolation;
-      segmentScores.push({ value: score, interpolation })
+      segmentScores.push({ value: score, interpolation, attrContribution });
 
       return segmentScores;
     }, []);
