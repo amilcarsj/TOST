@@ -46,11 +46,9 @@ export const Filter = ({ visible, filterByColumn, onClose, numFilters, columnWid
       }
       const min = inputRefMin.current[index].inputNumberRef.state.inputValue;
       const max = inputRefMax.current[index].inputNumberRef.state.inputValue;
-      const interpFilter = interpFilterRef.current[index];
-      console.log(interpFilter);
       let filters = new Array();
       if (min == null && max == null) {
-        filters=  [minMaxValues[index][0],minMaxValues[index][1]];
+        filters=  null;
       }
       else if (min != null && max != null) {
         filters = [parseFloat(min),parseFloat(max)];
@@ -61,7 +59,6 @@ export const Filter = ({ visible, filterByColumn, onClose, numFilters, columnWid
       else if (min == null){
         filters = [minMaxValues[index][0],parseFloat(max)];
       }
-      filters.push(interpFilter);
       
       return filters;
     });
@@ -85,22 +82,6 @@ export const Filter = ({ visible, filterByColumn, onClose, numFilters, columnWid
       <Input.Group key={index} compact style={{padding: '0 5px 0 5px',  width: columnWidth, visibility: index == 0 ? 'hidden' : 'visible', }}>
         { index > 0 &&
           <>
-          <Select
-              labelInValue
-              defaultValue={{value:'all'}}
-              style={{ width: '100%' }}
-              //ref= {el => interpFilterRef.current[index] = el}
-              //ref= {el => interpFilterRef.current[index] = el}
-              onSelect = {(val, el) => selectFilter(val, el,index)}
-            >
-              <Option value="all">Show All </Option>
-              <Option value="lt25">interp&lt;25% </Option>
-              <Option value="25to50">25%&lt;interp&lt;50%</Option>
-              <Option value="50to75">50%&lt;interp&lt;75%</Option>
-              <Option value="gt75">interp&gt;75% </Option>
-
-            </Select>
-            
             <InputNumber
               style={{ width: '100%', textAlign: 'center', marginBottom: 5 }}
               step={0.1}
