@@ -48,7 +48,7 @@ export const Filter = ({ visible, filterByColumn, onClose, numFilters, columnWid
       const max = inputRefMax.current[index].inputNumberRef.state.inputValue;
       let filters = new Array();
       if (min == null && max == null) {
-        filters=  null;
+        filters =  null;
       }
       else if (min != null && max != null) {
         filters = [parseFloat(min),parseFloat(max)];
