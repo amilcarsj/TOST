@@ -28,6 +28,7 @@ const App = () => {
   const [selectedAttributes, setSelectedAttributes] = useState(attributes.map((_, index) => index));
   const [runOnboarding, setRunOnboarding] = useState(false);
   const [scenario, setScenario] = useState(1);
+  const [calculatedScores, setCalculatedScores] =  useState(null);
 
   useEffect(() => {
     document.title= "TOST"
@@ -74,6 +75,7 @@ const App = () => {
   //   })
   // }
 
+  // Setting a medoid trip id
   const loadMedianTrajectory = () => {
     fetch(`${window.href}//trajectory2/162`)
     .then(res => res.json())
@@ -188,7 +190,7 @@ const App = () => {
 
           </div>
         </div>
-        {segmentValues && <ScoreTable tripsId={tripsId} data={segmentValues} selectedSegments={selected} selectedAttr={selectedAttributes} onTripClick={onSelectedTripChange} scenario={scenario} />}
+        {segmentValues && <ScoreTable tripsId={tripsId} onScoreChange={setCalculatedScores} data={segmentValues} selectedSegments={selected} selectedAttr={selectedAttributes} onTripClick={onSelectedTripChange} scenario={scenario} />}
       </Content>
     </div>
   );

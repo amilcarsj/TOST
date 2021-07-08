@@ -337,7 +337,7 @@ export const TableLens = ({ data, header, onTripClick, calcMethod, setCalcMethod
         setFilterChange(filterValues);
       }
 
-      console.log(prevFilterByColumn, filterByColumn);
+      //console.log(prevFilterByColumn, filterByColumn);
       const isFilterReset = filterByColumn.every(val => val == null);
       const isEqual = filterByColumn[columnIndex] == prevFilterByColumn[columnIndex] ||
         (filterByColumn[columnIndex] &&  prevFilterByColumn[columnIndex] && filterByColumn[columnIndex].every((val, index) => val ==  prevFilterByColumn[columnIndex][index]))
