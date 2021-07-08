@@ -17,10 +17,12 @@ export const ScoreTable = ({ tripsId, onScoreChange, data, selectedSegments, sel
   // const aData = [...data.slice(0, 200)];
   const computedData = memCalculate(tripsId, data, selectedSegments, selectedAttr, calcMethod);
   // const filteredDataByScenario = memFilter(computedData, scenario);
-  onScoreChange(computedData);
   const filteredHeader = header.filter((val, index) => {
     return index == 0 || index == 1 || selectedSegments.includes(index - 1)
   })
+  useEffect(() => {
+    onScoreChange(computedData); 
+  }, [computedData]);
 
   return (
     <>

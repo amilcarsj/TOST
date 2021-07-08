@@ -130,7 +130,13 @@ const App = () => {
     });
   }
 
-  const getAttributesCheckboxOptions = () => attributes.map((atr, index) => ({ label: atr, value: index }))
+  const onScoreCalculated = (scores) => {
+    setCalculatedScores(scores);
+    //console.log(calculatedScores);
+  };
+
+  const getAttributesCheckboxOptions = () => attributes.map((atr, index) => ({ label: atr, value: index }));
+  const selectedAttrNames = selectedAttributes.map((val,index)=> val);
 
   return (
     <div className="App">
@@ -182,6 +188,7 @@ const App = () => {
             
               <div>
                <AttributeContribution
+                  selectedAttr = {selectedAttrNames}
                   selectedTrip={selectedTrip}
                   meanTrajectory={meanTrajectory}
                />
@@ -190,7 +197,7 @@ const App = () => {
 
           </div>
         </div>
-        {segmentValues && <ScoreTable tripsId={tripsId} onScoreChange={setCalculatedScores} data={segmentValues} selectedSegments={selected} selectedAttr={selectedAttributes} onTripClick={onSelectedTripChange} scenario={scenario} />}
+        {segmentValues && <ScoreTable tripsId={tripsId} onScoreChange={onScoreCalculated} data={segmentValues} selectedSegments={selected} selectedAttr={selectedAttributes} onTripClick={onSelectedTripChange} scenario={scenario} />}
       </Content>
     </div>
   );
