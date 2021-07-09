@@ -4037,7 +4037,7 @@
     "d3-time" "1"
     "d3-time-format" "2"
 
-"d3-scale@^3.0.0":
+"d3-scale@^3.0.0", "d3-scale@^3.2.1":
   "integrity" "sha512-huz5byJO/6MPpz6Q8d4lg7GgSpTjIZW/l+1MQkzKfu2u8P6hjaXaStOpmyrD6ymKoW87d2QVFCKvSjLwjzx/rA=="
   "resolved" "https://registry.npmjs.org/d3-scale/-/d3-scale-3.2.1.tgz"
   "version" "3.2.1"
