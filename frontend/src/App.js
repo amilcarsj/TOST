@@ -29,7 +29,10 @@ const App = () => {
   const [runOnboarding, setRunOnboarding] = useState(false);
   const [scenario, setScenario] = useState(1);
   const [calculatedScores, setCalculatedScores] =  useState(null);
+  const [attrNames, setAttrNames] = useState(attributes);
 
+  //let selectedAttrNames = attributes;
+  
   useEffect(() => {
     document.title= "TOST"
   }, [])
@@ -54,6 +57,11 @@ const App = () => {
       setSelected(segments.map(segment => segment.segment_number))
     })
   }, [])
+
+  useEffect(() => {
+    let selectedAttrNames = selectedAttributes.map((attrIndex,index)=> attributes[attrIndex]);
+    setAttrNames(selectedAttrNames);
+  }, [selectedAttributes])
 
   const onSelectedTripChange = (tripId) => {
     if (!tripId) {
@@ -136,8 +144,8 @@ const App = () => {
   };
 
   const getAttributesCheckboxOptions = () => attributes.map((atr, index) => ({ label: atr, value: index }));
-  const selectedAttrNames = selectedAttributes.map((val,index)=> val);
-
+  //const selectedAttrNames = selectedAttributes.map((attrIndex,index)=> attributes[attrIndex]);
+  
   return (
     <div className="App">
       <Onboarding run={runOnboarding} setRunOnboarding={setRunOnboarding} />
@@ -188,7 +196,7 @@ const App = () => {
             
               <div>
                <AttributeContribution
-                  selectedAttr = {selectedAttrNames}
+                  selectedAttr = {attrNames}
                   selectedTrip={selectedTrip}
                   meanTrajectory={meanTrajectory}
                />
