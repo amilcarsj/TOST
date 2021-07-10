@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import * as d3 from 'd3';
 import { select, axisBottom, scaleLinear, group } from 'd3';
-import { Button, Typography } from 'antd';
+import { Button, Typography, Select, Row, Col } from 'antd';
 import { renderBarChart } from './renderBarChart';
 import sortDefault from './sort.svg';
 import sortAsc from './sort_asc.svg';
@@ -11,6 +11,7 @@ import { ScoreHelper, Filter } from '..';
 import './TableLens.css';
 
 const { Title } = Typography;
+const { Option } = Select;
 
 const useResizeObserver = (ref) => {
   const [dimensions, setDimensions] = useState(null);
@@ -556,10 +557,32 @@ export const TableLens = ({ data, header, onTripClick, calcMethod, setCalcMethod
           <Button className={`TextButton ${calcMethod == 'max' ? 'ButtonSelected': ''}`}  onClick={() => setCalcMethod('max')}>Highest Score</Button>
           <Button className={`TextButton ${calcMethod == 'avg' ? 'ButtonSelected': ''}`} onClick={() => setCalcMethod('avg')}>Avg Score</Button>
         </div>
-        <div>
-          <Button className='resetFilterButton' onClick={() => setFilterChange(Array(numColumnsWithScores).fill(null))}> reset filters</Button>
-          <Button className='showFiltersButton' style={{ marginLeft: 10 }} onClick={() => setShowFilters(true)}> show filters</Button>
-        </div>
+        <Row>
+          <Col span={10}>
+            Interpolation Filter
+            <Select
+                labelInValue
+                defaultValue={{value:'all'}}
+                style={{ width: '100%' }}
+                //ref= {el => interpFilterRef.current[index] = el}
+                //ref= {el => interpFilterRef.current[index] = el}
+                //onSelect = {(val, el) => selectFilter(val, el,index)}
+              >
+                <Option value="all">Show All </Option>
+                <Option value="lt25">interp&lt;25% </Option>
+                <Option value="25to50">25%&lt;interp&lt;50%</Option>
+                <Option value="50to75">50%&lt;interp&lt;75%</Option>
+                <Option value="gt75">interp&gt;75% </Option>
+
+              </Select>
+            </Col>
+            <Col span={7}>
+              <Button className='resetFilterButton' onClick={() => setFilterChange(Array(numColumnsWithScores).fill(null))}> reset filters</Button>  
+            </Col>
+            <Col span={7}> 
+              <Button type= "primary" className='showFiltersButton' style={{ marginLeft: 10 }} onClick={() => setShowFilters(true)}> show filters</Button>
+            </Col>
+        </Row>
 
         <ScoreHelper />
       </div>
