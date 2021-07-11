@@ -6,7 +6,7 @@ import * as d3 from 'd3';
 const range = (start, stop, step) => Array.from({ length: (stop - start) / step + 1}, (_, i) => start + (i * step));
 
 export const AttributeContribution = ({selectedAttr,selectedTrip,scores}) => {
-  const [trip, setTrip] = useState(null);
+  const [tripID, setTripID] = useState(null);
   
   // initiate the viz
   const margin = {top: 10, right: 30, bottom: 30, left: 40},
@@ -47,7 +47,7 @@ export const AttributeContribution = ({selectedAttr,selectedTrip,scores}) => {
   // This hook will be called when a new trip is selected on the scoretable
   useEffect(() => {
     //console.lo g(selectedTrip);
-    setTrip(selectedTrip);
+    setTripID(selectedTrip.id);
   }, [selectedTrip])
 
   // This hook will be called when the selected attributes will change
@@ -71,9 +71,9 @@ export const AttributeContribution = ({selectedAttr,selectedTrip,scores}) => {
       meanTripAttrContrib.forEach((element,index, arr) => {
           arr[index] = meanTripScore.reduce((accum, curr) => accum + curr[index],0)
       });
-      meanTripAttrContrib = meanTripAttrContrib.map(x=>x/selectedAttr.length);
+      meanTripAttrContrib = meanTripAttrContrib.map(x=>x/meanTripScore.length);
       
-      xRange= range(15, width, width/selectedAttr.length);
+      xRange= range(20, width, width/selectedAttr.length);
       xScale = d3.scaleOrdinal().domain(selectedAttr).range(xRange);
       yScale = d3.scaleLinear()
         .domain([0, 100])
@@ -106,6 +106,7 @@ export const AttributeContribution = ({selectedAttr,selectedTrip,scores}) => {
             .y(function(d) { return yScale(d) })
             )
       }
+      // dots of the attribute contribution viz
       if(!svg.select(".dots").empty()){
         let dots = svg.selectAll('.dots').data(meanTripAttrContrib);
         dots.enter().append('circle')
