@@ -33,6 +33,7 @@ export const AttributeContribution = ({selectedAttr,selectedTrip,scores}) => {
     xAxis = svg.append("g")
           .attr("transform", "translate(10," + height + ")")
           .attr("id","xAxis")
+          .attr("class","attributeNameAxis")
           .call(d3.axisBottom(xScale));
     // Y axis
     yScale = d3.scaleLinear()
@@ -62,6 +63,7 @@ export const AttributeContribution = ({selectedAttr,selectedTrip,scores}) => {
   useEffect(() => {
     let meanTripScore;
     if (scores!= null){
+      // Creating the mean trajectory attr contribution viz
       meanTripScore = scores.find(x => x[0] == 162); // finding the mean trip in scores
       meanTripScore = meanTripScore.map(x=>x.attrContribution);
       meanTripScore.splice(0,2);
@@ -106,12 +108,14 @@ export const AttributeContribution = ({selectedAttr,selectedTrip,scores}) => {
       }
       if(!svg.select(".dots").empty()){
         let dots = svg.selectAll('.dots').data(meanTripAttrContrib);
-        dots.exit().remove();
         dots.enter().append('circle')
+          .transition()
+          .duration(1500)
           .attr("cx", function(d, i) { return xScale(selectedAttr[i]) })
           .attr("cy", function(d) { return yScale(d) })
           .attr("r", 7)
-          .style("fill", "#69b3a2");
+          .attr("class","dots")
+          .style("fill", "green");
 
         dots  
         .transition()
@@ -119,7 +123,8 @@ export const AttributeContribution = ({selectedAttr,selectedTrip,scores}) => {
           .attr("cx", function(d, i) { return xScale(selectedAttr[i]) })
           .attr("cy", function(d) { return yScale(d) })
           .attr("r", 7)
-          .style("fill", "#69b3a2");
+          .style("fill", "green");
+        dots.exit().remove();
       }
       else{
         svg
@@ -131,7 +136,7 @@ export const AttributeContribution = ({selectedAttr,selectedTrip,scores}) => {
           .attr("cx", function(d, i) { return xScale(selectedAttr[i]) })
           .attr("cy", function(d) { return yScale(d) })
           .attr("r", 7)
-          .style("fill", "#69b3a2")
+          .style("fill", "green")
         }
      }
   }, [scores])
