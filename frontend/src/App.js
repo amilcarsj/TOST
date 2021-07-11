@@ -198,7 +198,7 @@ const App = () => {
                <AttributeContribution
                   selectedAttr = {attrNames}
                   selectedTrip={selectedTrip}
-                  meanTrajectory={meanTrajectory}
+                  scores={calculatedScores}
                />
               </div>
             </div>
