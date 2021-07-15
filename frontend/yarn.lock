@@ -3957,9 +3957,9 @@
   "version" "1.0.6"
 
 "d3-fetch@1":
-  "integrity" "sha512-S2loaQCV/ZeyTyIF2oP8D1K9Z4QizUzW7cWeAOAS4U88qOt3Ucf6GsmgthuYSdyB2HyEm4CeGvkQxWsmInsIVA=="
-  "resolved" "https://registry.npmjs.org/d3-fetch/-/d3-fetch-1.1.2.tgz"
-  "version" "1.1.2"
+  "integrity" "sha512-yC78NBVcd2zFAyR/HnUiBS7Lf6inSCoWcSxFfw8FYL7ydiqe80SazNwoffcqOfs95XaLo7yebsmQqDKSsXUtvA=="
+  "resolved" "https://registry.npmjs.org/d3-fetch/-/d3-fetch-1.2.0.tgz"
+  "version" "1.2.0"
   dependencies:
     "d3-dsv" "1"
 
@@ -3979,9 +3979,9 @@
   "version" "1.4.3"
 
 "d3-geo@1":
-  "integrity" "sha512-9edcH6J3s/Aa3KJITWqFJbyB/8q3mMlA9Fi7z6yy+FAYMnRaxmC7jBhUnsINxVWD14GmqX3DK8uk7nV6/Ekt4A=="
-  "resolved" "https://registry.npmjs.org/d3-geo/-/d3-geo-1.11.9.tgz"
-  "version" "1.11.9"
+  "integrity" "sha512-XG4d1c/UJSEX9NfU02KwBL6BYPj8YKHxgBEw5om2ZnTRSbIcego6dhHwcxuSR3clxh0EpE38os1DVPOmnYtTPg=="
+  "resolved" "https://registry.npmjs.org/d3-geo/-/d3-geo-1.12.1.tgz"
+  "version" "1.12.1"
   dependencies:
     "d3-array" "1"
 
@@ -4037,7 +4037,7 @@
     "d3-time" "1"
     "d3-time-format" "2"
 
-"d3-scale@^3.0.0":
+"d3-scale@^3.0.0", "d3-scale@^3.2.1":
   "integrity" "sha512-huz5byJO/6MPpz6Q8d4lg7GgSpTjIZW/l+1MQkzKfu2u8P6hjaXaStOpmyrD6ymKoW87d2QVFCKvSjLwjzx/rA=="
   "resolved" "https://registry.npmjs.org/d3-scale/-/d3-scale-3.2.1.tgz"
   "version" "3.2.1"

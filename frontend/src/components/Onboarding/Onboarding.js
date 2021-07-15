@@ -73,7 +73,7 @@ const steps = [
   },
   {
     target: '.tick',
-    content: 'Pay attention to these to see the minimun and maximum values',
+    content: 'Pay attention to these to see the minimum and maximum values',
   },
   // {
   //   target: '.selected',

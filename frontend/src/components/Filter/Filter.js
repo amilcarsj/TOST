@@ -1,8 +1,9 @@
 import React, { useState, useRef } from 'react';
-import { Drawer, Input, InputNumber, Button } from 'antd';
+import { Drawer, Input, InputNumber, Button, Dropdown, Menu, Select } from 'antd';
 import moize from 'moize';
 import './Filter.css';
 import { values } from 'd3';
+import { DownOutlined } from '@ant-design/icons';
 
 const calculateMinMax = (data, filterByColumn) => {
   const columns = [...Array(data[0].length).keys()] // get number of columns which have values to display
@@ -19,9 +20,13 @@ const calculateMinMax = (data, filterByColumn) => {
 
 const memcalculateMinMax = moize(calculateMinMax);
 
+
+const { Option } = Select;
+
 export const Filter = ({ visible, filterByColumn, onClose, numFilters, columnWidth, data, onUpdateFilters }) => {
   const inputRefMin = useRef([]);
   const inputRefMax = useRef([]);
+  const interpFilterRef= useRef([]);
 
   if (filterByColumn.length != data[0].length) {
     return <></>;
@@ -32,6 +37,7 @@ export const Filter = ({ visible, filterByColumn, onClose, numFilters, columnWid
 
   inputRefMin.current = new Array(filterByColumn.length);
   inputRefMax.current = new Array(filterByColumn.length);
+  interpFilterRef.current = new Array(filterByColumn.length);
 
   const calculateFilterValues = () => {
     const values = [...Array(filterByColumn.length).keys()].map(index => {
@@ -40,20 +46,27 @@ export const Filter = ({ visible, filterByColumn, onClose, numFilters, columnWid
       }
       const min = inputRefMin.current[index].inputNumberRef.state.inputValue;
       const max = inputRefMax.current[index].inputNumberRef.state.inputValue;
-
+      let filters = new Array();
       if (min == null && max == null) {
-        return null;
+        filters =  null;
       }
-      if (min == null) {
-        return [minMaxValues[index][0], parseFloat(max)]
+      else if (min != null && max != null) {
+        filters = [parseFloat(min),parseFloat(max)];
       }
-      if (max == null) {
-        return [parseFloat(min), minMaxValues[index][1]]
+      else if (max == null) {
+        filters = [parseFloat(min), minMaxValues[index][1]];
       }
-      return [parseFloat(min), parseFloat(max)];
+      else if (min == null){
+        filters = [minMaxValues[index][0],parseFloat(max)];
+      }
+      
+      return filters;
     });
 
     return values;
+  }
+  const selectFilter = (option, el, index) =>{ 
+    interpFilterRef.current[index] = option.value;
   }
 
   return(<Drawer
