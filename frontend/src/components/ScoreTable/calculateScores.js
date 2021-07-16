@@ -21,7 +21,6 @@ export const calculate = (tripsId, data, selectedSegments, selectedAttr, calcMet
 
       const interpolation = tripIdAndValues[tripIdAndValues.length - 1]
       const filteredAttr = selectedAttr.map(attrIndex => tripIdAndValues[attrIndex + 1]) // we add +1 because the first value is the trip id
-      // TODO: Capture the attribute names and values
       const sum = filteredAttr.reduce((acc, cur) => acc + Math.abs(cur), 0);
       // Later we need to pass it to the parent component, and construct a D3 visualization
       // or some modal to show the amount of contribution (Need to ask professor) 
@@ -43,9 +42,9 @@ export const calculate = (tripsId, data, selectedSegments, selectedAttr, calcMet
     const avgInterpolation = numSegmentsWithScore > 0 ?  interpolationSum / numSegmentsWithScore : null;
 
     if (calcMethod == 'max')
-     return [tripId, { value: maxScore, interpolation: highesScoreInterpolation }, ...segmentScoresForTrip];
+     return [tripId, avgInterpolation, { value: maxScore, interpolation: highesScoreInterpolation }, ...segmentScoresForTrip];
     else
-      return  [tripId, { value: avgScore, interpolation: avgInterpolation }, ...segmentScoresForTrip];
+      return  [tripId, avgInterpolation, { value: avgScore, interpolation: avgInterpolation }, ...segmentScoresForTrip];
   });
 
   // downloadObjectAsJson(tripsScoring, 'scoring');
