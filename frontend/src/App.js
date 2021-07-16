@@ -182,15 +182,15 @@ const App = () => {
             clickable
           />
           <div className='AttrContributionContainer'>
-          <Row>
-            <Col span={16}><Title level={4}>Attribute Contribution on Score Calculation</Title></Col>
-            <Col span={8} style={{"textAlign":"right"}}>
-              <Title level={4}> 
-              <Text type="warning">{selectedTrip!=null?selectedTrip.tripId:"No Trip selected"}</Text> 
-            </Title>
-            </Col>
-          </Row>
-            
+            <Row>
+              <Col span={16}><Title level={4}>Attribute Contribution on Score Calculation</Title></Col>
+              <Col span={8} style={{"textAlign":"right"}}>
+                <Title level={3}> 
+                <Text type="warning">{selectedTrip!=null?selectedTrip.tripId:"No Trip selected"}</Text> 
+              </Title>
+              </Col>
+            </Row>
+              
             
             <div>
             

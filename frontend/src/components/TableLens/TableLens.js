@@ -208,6 +208,39 @@ export const TableLens = ({ data, header, onTripClick, calcMethod, setCalcMethod
     return ((index - 1) * getNonSelectedBarHeight()) + usedPadding + selectedBarHeight;
   }
 
+  const selectInterpFilter = (el) => {
+    let filteredData = [...data];
+    let interpFilter = el.value;
+    filteredData = filteredData.filter( row => {
+      const interpPercentage = row[1].interpolation * 100;
+      console.log(interpFilter);
+      switch (interpFilter) {
+        case "all":
+          return true;
+        case "lt25":
+          if(interpPercentage < 25)
+            return true;
+          else return false;
+        case "25to50":
+          if(interpPercentage > 25 && interpPercentage < 50 )
+            return true;
+          else return false;
+        case "50to75":
+          if(interpPercentage > 50 && interpPercentage < 75 )
+            return true;
+          else return false;
+        case "gt75":
+          if(interpPercentage > 75 )
+            return true;
+          else return false;
+        default:
+          return true;
+      }
+    });
+    console.log(filteredData);
+    setSortedData(filteredData);
+  };
+
   useEffect(() => {
     // Header
     if (!dimensions) {
@@ -559,14 +592,13 @@ export const TableLens = ({ data, header, onTripClick, calcMethod, setCalcMethod
         </div>
         <Row>
           <Col span={10}>
-            Interpolation Filter
             <Select
                 labelInValue
                 defaultValue={{value:'all'}}
-                style={{ width: '100%' }}
+                style={{ width: '150px' }}
                 //ref= {el => interpFilterRef.current[index] = el}
                 //ref= {el => interpFilterRef.current[index] = el}
-                //onSelect = {(val, el) => selectFilter(val, el,index)}
+                onSelect = {(val, el) => selectInterpFilter(el)}
               >
                 <Option value="all">Show All </Option>
                 <Option value="lt25">interp&lt;25% </Option>
