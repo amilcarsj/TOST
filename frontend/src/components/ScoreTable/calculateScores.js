@@ -42,9 +42,9 @@ export const calculate = (tripsId, data, selectedSegments, selectedAttr, calcMet
     const avgInterpolation = numSegmentsWithScore > 0 ?  interpolationSum / numSegmentsWithScore : null;
 
     if (calcMethod == 'max')
-     return [tripId, avgInterpolation, { value: maxScore, interpolation: highesScoreInterpolation }, ...segmentScoresForTrip];
+     return [tripId, { value: maxScore, interpolation: highesScoreInterpolation }, ...segmentScoresForTrip];
     else
-      return  [tripId, avgInterpolation, { value: avgScore, interpolation: avgInterpolation }, ...segmentScoresForTrip];
+      return  [tripId, { value: avgScore, interpolation: avgInterpolation }, ...segmentScoresForTrip];
   });
 
   // downloadObjectAsJson(tripsScoring, 'scoring');
