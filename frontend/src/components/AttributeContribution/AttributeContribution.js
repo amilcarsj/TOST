@@ -65,7 +65,7 @@ export const AttributeContribution = ({selectedAttr,selectedTrip,scores}) => {
           arr[index] = selectedTripScore.reduce((accum, curr) => accum + curr[index],0)
       });
       selectedTripAttrContrib = selectedTripAttrContrib.map(x=>x/selectedTripScore.length);
-      console.log(selectedTripAttrContrib);
+      //console.log(selectedTripAttrContrib);
       // creating the viz
       xRange= range(20, width, width/selectedAttr.length);
       xScale = d3.scaleOrdinal().domain(selectedAttr).range(xRange);

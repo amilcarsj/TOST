@@ -4,7 +4,7 @@ import { calculate } from './calculateScores';
 import { filterData } from './filterComputedData';
 import moize from 'moize';
 
-const TestD = React.memo(TableLens);
+const TableLensCachedComponent = React.memo(TableLens);
 
 const header = ['trip_id', 'Highest Score', 'SR_1', 'SR_2','SR_3','SR_4', 'SR_5', 'SR_6','SR_7','SR_8', 'SR_9', 'SR_10'];
 
@@ -27,7 +27,7 @@ export const ScoreTable = ({ tripsId, onScoreChange, data, selectedSegments, sel
   return (
     <>
       { selectedSegments.length > 0 && selectedAttr.length > 0 ?
-        <TestD data={computedData} header={filteredHeader} onTripClick={onTripClick} calcMethod={calcMethod} setCalcMethod={setCalcMethod}/> :
+        <TableLensCachedComponent data={computedData} header={filteredHeader} onTripClick={onTripClick} calcMethod={calcMethod} setCalcMethod={setCalcMethod}/> :
         <div className='placeholder'>Select at least one segment and one attribute </div>
       }
     </>
