@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import * as d3 from 'd3';
-import { select, axisBottom, scaleLinear } from 'd3';
-import { Button, Typography } from 'antd';
+import { select, axisBottom, scaleLinear, group } from 'd3';
+import { Button, Typography, Select, Row, Col } from 'antd';
 import { renderBarChart } from './renderBarChart';
 import sortDefault from './sort.svg';
 import sortAsc from './sort_asc.svg';
@@ -11,6 +11,7 @@ import { ScoreHelper, Filter } from '..';
 import './TableLens.css';
 
 const { Title } = Typography;
+const { Option } = Select;
 
 const useResizeObserver = (ref) => {
   const [dimensions, setDimensions] = useState(null);
@@ -74,7 +75,7 @@ export const TableLens = ({ data, header, onTripClick, calcMethod, setCalcMethod
 
     return aVal - bVal;
   }
-
+  // Setting the states after receiving the data
   useEffect(() => {
     // clean filter on different scenarios
     setSortState(null);
@@ -87,13 +88,13 @@ export const TableLens = ({ data, header, onTripClick, calcMethod, setCalcMethod
   // const prevFilterByColumn = usePrevious(filterByColumn);
   // const prevSortState = usePrevious(sortState);
 
-
+  // Filtering and sorting the data depending on the selection 
   useEffect(() => {
-    let sortedData = [...data];
+    let filteredData = [...data];
 
     const isFilterReset = filterByColumn.every(val => val == null);
     if (!isFilterReset) {
-      sortedData = sortedData.filter(row => {
+      filteredData = filteredData.filter(row => {
         return filterByColumn.some((filterInterval, columnIndex) => {
           if (filterInterval == null) { // no filter has been set to this column yet
             return false;
@@ -103,18 +104,57 @@ export const TableLens = ({ data, header, onTripClick, calcMethod, setCalcMethod
           if (score < filterInterval[0] || score > filterInterval[1]) {
             return false;
           }
-
           return true;
         });
       });
+
+      // filteredData = filteredData.filter(row => {
+      //   return filterByColumn.some((filterInterval, columnIndex) => {
+      //     if (filterInterval == null) { // no filter has been set to this column yet
+      //       return false;
+      //     }
+      //     const interpFilter = filterInterval[2]
+      //     const interpPercentage = row[columnIndex].interpolation * 100;
+      //     if (interpFilter != undefined){
+      //       switch (interpFilter) {
+      //         case "lt25":
+      //           if(interpPercentage > 25)
+      //             return false;
+      //           else break;
+      //       }
+      //     }
+          
+      //     return true;
+      //   });
+      // });
+      //     //  //   case "25to50":
+      //     //   //     if(interpPercentage <= 25 || interpPercentage > 50)
+      //     //   //       return false;
+      //     //   //     else break;
+      //     //   //   case "50to75":
+      //     //   //     if(interpPercentage <= 50 || interpPercentage > 75)
+      //     //   //       return false;
+      //     //   //     else break;
+      //     //   //   case "gt75":
+      //     //   //     if(interpPercentage <= 75)
+      //     //   //       return false;
+      //     //   //     else break; 
+      //     //   //   default:
+      //     //   //     break;
+      //     //   // }
+            
+       
+    }
+    else{
+      filteredData= [...data];
     }
 
     if (sortState) {
       const columnIndex = sortState.column;
-      sortedData.sort((a,b) => compare(a[columnIndex], b[columnIndex], sortState.sortBy, sortState.state ))
+      filteredData.sort((a,b) => compare(a[columnIndex], b[columnIndex], sortState.sortBy, sortState.state ))
     }
 
-    setSortedData(sortedData);
+    setSortedData(filteredData);
   }, [sortState, filterByColumn])
 
   const calcWidth = (value, column) => {
@@ -167,6 +207,39 @@ export const TableLens = ({ data, header, onTripClick, calcMethod, setCalcMethod
 
     return ((index - 1) * getNonSelectedBarHeight()) + usedPadding + selectedBarHeight;
   }
+
+  const selectInterpFilter = (el) => {
+    let filteredData = [...data];
+    let interpFilter = el.value;
+    filteredData = filteredData.filter( row => {
+      const interpPercentage = row[1].interpolation * 100;
+      console.log(interpFilter);
+      switch (interpFilter) {
+        case "all":
+          return true;
+        case "lt25":
+          if(interpPercentage < 25)
+            return true;
+          else return false;
+        case "25to50":
+          if(interpPercentage > 25 && interpPercentage < 50 )
+            return true;
+          else return false;
+        case "50to75":
+          if(interpPercentage > 50 && interpPercentage < 75 )
+            return true;
+          else return false;
+        case "gt75":
+          if(interpPercentage > 75 )
+            return true;
+          else return false;
+        default:
+          return true;
+      }
+    });
+    console.log(filteredData);
+    setSortedData(filteredData);
+  };
 
   useEffect(() => {
     // Header
@@ -287,18 +360,18 @@ export const TableLens = ({ data, header, onTripClick, calcMethod, setCalcMethod
       //   g = parent.append('g').attr('transform', `translate(0,  ${headerHeight - barChartHeight - 25})`)
       // }
 
-      const onFilterChange = (minMaxFilterValues) => {
-        if (filterByColumn[columnIndex] != null && filterByColumn[columnIndex].every((val, index) => val ==  minMaxFilterValues[index])){
+      const onFilterChange = (FilterValues) => {
+        if (filterByColumn[columnIndex] != null && filterByColumn[columnIndex].every((val, index) => val ==  FilterValues[index])){
           return;
         }
         let filterValues = [...filterByColumn];
-        filterValues[columnIndex] = minMaxFilterValues;
+        filterValues[columnIndex] = FilterValues;
         setHovered(null);
         setSelected(null);
         setFilterChange(filterValues);
       }
 
-      // console.log(prevFilterByColumn, filterByColumn)
+      //console.log(prevFilterByColumn, filterByColumn);
       const isFilterReset = filterByColumn.every(val => val == null);
       const isEqual = filterByColumn[columnIndex] == prevFilterByColumn[columnIndex] ||
         (filterByColumn[columnIndex] &&  prevFilterByColumn[columnIndex] && filterByColumn[columnIndex].every((val, index) => val ==  prevFilterByColumn[columnIndex][index]))
@@ -319,6 +392,7 @@ export const TableLens = ({ data, header, onTripClick, calcMethod, setCalcMethod
 
   }, [data, sortedData, filterByColumn, dimensions]);
 
+// creates the table of trip score from the sortedData
   useEffect(() => {
     // Table
     if (!dimensions) {
@@ -337,15 +411,9 @@ export const TableLens = ({ data, header, onTripClick, calcMethod, setCalcMethod
     //   .padding(0.02);
     // const yScale = scale()
 
+    //d3 selector for all the bars in the tablelense
     const groups = svg
       .select('.table')
-      // .attr('pointer-events', 'bounding-box')
-      // .on('mouseleave', () => {
-      //   console.log(event);
-      //   // if (event.target.className && event.target.className.baseVal == 'table') {
-      //   //   setHovered(null);
-      //   // }
-      // })
       .selectAll('.row')
       .data(sortedData)
       .join('g')
@@ -369,7 +437,7 @@ export const TableLens = ({ data, header, onTripClick, calcMethod, setCalcMethod
       .each((d, i, nodes) => {
         const parent = d3.select(nodes[i]);
         parent
-          .selectAll('.rowbackground')
+          .selectAll('.rowbackground') // selector for row background
           .data(d => [d])
           .join('rect')
           .attr('class', 'rowbackground')
@@ -379,7 +447,7 @@ export const TableLens = ({ data, header, onTripClick, calcMethod, setCalcMethod
           .attr('fill', `${i == selectedIndex ? '#999999': 'white'}`)
 
         parent
-          .selectAll('.bar')
+          .selectAll('.bar')   // selector for all the bars
           .data(d)
           .join('rect')
           .attr('class', 'bar')
@@ -393,28 +461,6 @@ export const TableLens = ({ data, header, onTripClick, calcMethod, setCalcMethod
           .attr('fill', val => colorScale(val.interpolation))
       })
 
-      // svg
-      //   .selectAll('.table')
-      //   .data(d => [1])
-      //   .append('rect')
-      //   .attr('class', 'click-capture')
-      //   .attr('pointer-events', 'all')
-      //   .attr('x', 0)
-      //   .attr('y', headerHeight)
-      //   .attr('width', dimensions.width)
-      //   .attr('height', dimensions.height - headerHeight)
-      //   .attr('fill', 'green')
-      //   .style('visibility', 'hidden')
-      //   .on('mouseleave', () => {
-      //     // setHovered(null);
-      //     console.log('mouseleave table', event)
-      //   })
-
-      // svg
-      // .on('mouseleave', () => {
-      //   // setHovered(null);
-      //   console.log('mouseleave leave', event)
-      // })
   }, [sortedData, selectedIndex, dimensions]);
 
   useEffect(() => {
@@ -486,16 +532,6 @@ export const TableLens = ({ data, header, onTripClick, calcMethod, setCalcMethod
         .attr('alignment-baseline', "hanging")
       }
 
-
-      // parent
-      //  .selectAll('.bla')
-      //  .data(d => [d])
-      //  .join('text')
-      //  .attr('class', 'bla')
-      //  .text(data =>  getText(data, i))
-      //  .attr('y', 0)
-      //  .attr('alignment-baseline', "hanging")
-
       if (i == 0) {
         fo
         .selectAll('.tripId')
@@ -510,9 +546,9 @@ export const TableLens = ({ data, header, onTripClick, calcMethod, setCalcMethod
       }
 
 
-      // selected.forEach((data, index) => {
-      //   console.log(data, index);
-      // });
+    // selected.forEach((data, index) => {
+    //      console.log(data, index);
+    //    });
     }
 
     const aHeight = Math.min(dimensions.height, headerHeight +20 + sortedData.length * 21)
@@ -554,13 +590,35 @@ export const TableLens = ({ data, header, onTripClick, calcMethod, setCalcMethod
           <Button className={`TextButton ${calcMethod == 'max' ? 'ButtonSelected': ''}`}  onClick={() => setCalcMethod('max')}>Highest Score</Button>
           <Button className={`TextButton ${calcMethod == 'avg' ? 'ButtonSelected': ''}`} onClick={() => setCalcMethod('avg')}>Avg Score</Button>
         </div>
-        <div>
-          <Button className='resetFilterButton' onClick={() => setFilterChange(Array(numColumnsWithScores).fill(null))}> reset filters</Button>
-          <Button className='showFiltersButton' style={{ marginLeft: 10 }} onClick={() => setShowFilters(true)}> show filters</Button>
-        </div>
+        <Row>
+          <Col span={10}>
+            <Select
+                labelInValue
+                defaultValue={{value:'all'}}
+                style={{ width: '150px' }}
+                //ref= {el => interpFilterRef.current[index] = el}
+                //ref= {el => interpFilterRef.current[index] = el}
+                onSelect = {(val, el) => selectInterpFilter(el)}
+              >
+                <Option value="all">Show All </Option>
+                <Option value="lt25">interp&lt;25% </Option>
+                <Option value="25to50">25%&lt;interp&lt;50%</Option>
+                <Option value="50to75">50%&lt;interp&lt;75%</Option>
+                <Option value="gt75">interp&gt;75% </Option>
+
+              </Select>
+            </Col>
+            <Col span={7}>
+              <Button className='resetFilterButton' onClick={() => setFilterChange(Array(numColumnsWithScores).fill(null))}> reset filters</Button>  
+            </Col>
+            <Col span={7}> 
+              <Button type= "primary" className='showFiltersButton' style={{ marginLeft: 10 }} onClick={() => setShowFilters(true)}> show filters</Button>
+            </Col>
+        </Row>
 
         <ScoreHelper />
       </div>
+      {/* Score Tablelens */}
       <div className='wrapper' ref={wrapperRef}>
         <svg className='svgtest' ref={svgRef} style={{ height: dimensions ? dimensions.height : 300 }}>
           <g className='header' ref={tableHeaderRef}/>

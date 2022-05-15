@@ -10,3 +10,4 @@ export * from './SelectScenario';
 export * from './TableLens';
 export * from './ScoreTable';
 export * from './Filter';
+export * from './AttributeContribution';
